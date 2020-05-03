@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+	<head>
+		<title>Virtual Residency Interviewer by MarzloffMedia</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<meta property="og:title" content="Virtual Residency Interviewer" />
+		<meta property="og:site_name" content="MarzloffMedia" />
+		<meta property="og:url" content="http://www.marzloffmedia.com/interview/index.html" />
+		<meta property="og:description" content="Practice answering common questions at residency interviews and keep track of the clock with the built-in timer." />
+		<meta property="og:image" content="http://www.marzloffmedia.com/interview/images/interviewthb.png" />
+		<meta property="og:type" content="website" />
+		<meta property="fb:app_id" content="494873410654706" />
+		<link href='http://fonts.googleapis.com/css?family=Libre+Baskerville' rel='stylesheet' type='text/css'>	
+		<link rel="stylesheet" href="css/flipclock.css">
+	    <script src="../scripts/jquery-1.9.1.min.js"></script>
+		<script src="../scripts/jquery.visible.min.js"></script>
+		<script src="js/interview.js"></script>
+		<script src="js/prefixfree.min.js"></script>
+	    <style>
+			body {background: url('images/job-interview-process.jpg') no-repeat lightgrey; background-size: 100%; font-family: 'Libre Baskerville', Verdana, Arial, serif;}
+			#questionText {margin: 2% 70%; width: 30%; font-size: 24px; text-align: right; font-weight: bold;}
+			#nextButtonGroup {margin: 40% 0 0 90%; position: fixed !important; top:0; right:0; bottom: 50px; left: -20px;}
+			#amaz {width: 120px; height: 240px; position: absolute; bottom: 20px; left: 50px;} 
+			#fbcontainer { float:right;}
+			.your-clock {position: absolute; margin: 20px 0 0 30px; width: 500px; /*background-color: rgba(200, 200, 200, .6);*/}
+	    </style>
+   </head>
+
+   <body>
+	<script type="text/javascript">
+
+	$(document).ready(function(){
+
+		var questions = ["Tell me about yourself.",
+						"What got you into medicine?",
+						"Why are you going into this specialty?",
+						"What have you done to inform yourself about a career in this specialty?",
+						"What do you see as the positive and negative features of this specialty?",
+						"What problems do you think the specialty faces?",
+						"What are your practice plans after finishing residency? Where do you see yourself ten years from now?",
+						"Do you have any plans to pursue fellowship training?",
+						"Do you have research experience? Do you have any interest in research?",
+						"What do you consider to be important in a training program? What are you looking for in a program? What is your ideal program?",
+						"What are you avoiding in a training program?",
+						"Why have you applied to this residency program?",
+						"What is your perception of the strengths and weaknesses of this program?",
+						"What qualifications do you have that set you apart from other applicants?",
+						"Why should we choose you over the other highly qualified applicants? How would you contribute to our residency?  Tell me three things that would make you especially valuable to our residency.",
+						"Where else have you interviewed?",
+						"How have you done in medical school?",
+						"What is the best experience you had in medical school?",
+						"What is the worst experience you had in medical school?",
+						"What were the major deficiencies in your medical school training?",
+						"What rotation gave you the most difficulty and why?",
+						"What was your most difficult situation in medical school?",
+						"Are you prepared for the rigors of residency?",
+						"What was the most interesting case you were involved in?",
+						"What is your most memorable patient encounter?",
+						"What are your strengths? How would your friends describe you?",
+						"What are your weaknesses?",
+						"Of which accomplishments are you most proud?",
+						"How do you best deal with conflict?",
+						"Whom do you depend on for support?",
+						"What do you do with your free time? What are your interests and hobbies?",
+						"With what kinds of people do you have difficulties working?",
+						"With what types of patients do you have trouble dealing?",
+						"What other programs have you applied to?",
+						"Can you explain your grades/board scores/leave of absence?",
+						"What if you don't match?",
+						"Why have you chosen to interview in this part of the country?",
+						"Are you applying to any other specialty?",
+						"How will you rank us?",
+						"What do you think about what is happening in (Current event)",
+						"How do you see the delivery of health care evolving?",
+						"What was the last book you read?",
+						"What ECFMG requirements remain for you to complete?",
+						"Is there anything else you would like to add?",
+						"Tell me about a time when you worked effectively under a great deal of pressure.",
+						"Tell me about a particularly stressful situation you encountered in medical school and how you handled it.",
+						"Tell me about a time when you made a mistake and had to admit it to your resident or attending.",
+						"How would you deal with a fellow resident who is not doing his share of the work?",
+						"Tell me about a negative interaction you had with an attending or resident. How did the two of you deal with it?",
+						"Tell me about a time when you were really upset by the words or actions of an attending or resident.",
+						"Tell me about a patient from whom you learned something. How will this experience help you as a physician.",
+						"Describe a relationship with a patient that had a significant effect on you.",
+						"Tell me about a time when you had a personality conflict wiht another team member. How did you deal with it?",
+						"Your attending physician asks you a question and you are not sure of the answer. What do you say or do?",
+						"Your colleague is abusing alcohol or drugs.  How would you handle this situation?",
+						"Tell me about a time when you were disappointed in your performance.",
+						"Tell me about a time when you disagreed with how an ethical situation was being handled.",
+						"Tell me about a situation in which you overcame adversity.",
+						"Describe a clinical situation you handled well.",
+						"Tell me about a clinical situation that didn't go as well as you would ahve liked.",
+						"Give me an example lf a time when you had a difficult communication problem",
+						"Tell me about a time you had to build a relationship with someone you didn't like.",
+						"Tell me about a problem you had with a classmate, faculty member, or patient. How did you handle it?",
+						"Tell me about a time when you handled a stressful situation poorly. ",
+						"Tell me about a time when you became really angry over a situation at work.",
+						"Discuss a particularly meaningful experience in your medical training.",
+						"Discuss a particularly difficult experience in your medical training.",
+						"Describe to me a situation when you had to break someone's confidence.",
+						"Was there a time during rotations in which you didn't feel a part of the team? How did you handle the situation?",
+						"Tell me about a time when you witnessed unprofessional or unethical behavior on the part of a resident or attending. How did you handle it?",
+						"Tell me about a time when you had to build rapport quickly with someone under difficult conditions.",
+						"Tell me about the major challenges you have faced in your medical school career.",
+						"Tell me about a time you were able to successfully work with another person even when that person may not have personally liked you.",
+						"Tell me about a time when you were able to successfully work with another person when you did not like that person.",
+						"Tell me about a time during rotations in which you went above and beyond.",
+						"Describe to me a time when you received an evaluation with which you disagreed.",
+						"Your senior resident insists on a treatment plan you feel may harm the patient. What do you do?",
+
+					];
+
+		var questionsLeft = questions;
+
+		$("#nextButton").click(function(){
+
+			var index = Math.floor(Math.random() * questionsLeft.length);
+			$("#questionText").html(questionsLeft[index]);
+			if(questionsLeft.length > 0)
+				questionsLeft.splice(index, 1);
+			else{
+				$("#questionText").html("Do you have any questions for me?");
+				$("#nextButton").hide();
+			}
+			
+		});
+
+		$("#finishButton").click(function(){
+				questionsLeft.length = 0;
+				$("#questionText").html("Do you have any questions for me?");
+				$("#nextButton").hide();
+				$("#finishButton").hide();
+				//$("#nextButtonGroup").html("CONGRATS, YOU MATCHED!");
+
+		
+			
+		});
+
+		var paused = false;
+		var clock = $('.your-clock').FlipClock({
+			// ... your options here
+		});
+
+		$('your-clock').click(function(){
+			if(paused) {
+				this.start();
+				paused = false;
+			}else{ 
+				this.stop(); 
+				paused = true;
+			}
+		});
+
+
+	  window.fbAsyncInit = function() {
+	    FB.init({
+	      appId      : '494873410654706',
+	      xfbml      : true,
+	      version    : 'v2.1'
+	    });
+	  };
+
+	  (function(d, s, id){
+	     var js, fjs = d.getElementsByTagName(s)[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement(s); js.id = id;
+	     js.src = "//connect.facebook.net/en_US/sdk.js";
+	     fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+
+		});
+	</script>
+
+	<div class="your-clock"></div>	
+   	<div id="questionText">Hello, Let's begin.</div>
+
+<div id="amaz"><iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ss&ref=ss_til&ad_type=product_link&tracking_id=nextec-20&marketplace=amazon&region=US&placement=0972556176&asins=0972556176&linkId=HPGYYOGX5KARPFGY&show_border=true&link_opens_in_new_window=true">
+</iframe></div>	
+<div id="nextButtonGroup">
+	<div id="fbcontainer" class="fb-like" data-share="true" data-width="150" data-show-faces="true"></div>
+   		<input id="nextButton" type="button" value="Next Question" style="width: 120px; height: 40px; font-size: 14px;"/>
+   		<input id="finishButton" type="button" value="Finish up" style="width: 120px; height: 40px; font-size: 14px;"/>
+   </div> 
+
+
+   <script src="/assets/js/libs/jquery.js"></script>
+		<script src="../scripts/prefixfree.min.js"></script>
+		<script src="../scripts/flipclock.min.js"></script>
+
+
+	<script type="text/javascript">
+
+
+      // GOOGLE ANALYTICS
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-18954204-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+
+	 </script>
+
+   </body>
+
+   </html>
