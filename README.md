@@ -4,3 +4,5 @@ Practice residency interview questions with a virtual interviewer. Watch the tim
 
 [Live Demo](https://gmarzloff.github.io/residency-interview)
 
+![Screenshot](images/screenshot.png)
+
